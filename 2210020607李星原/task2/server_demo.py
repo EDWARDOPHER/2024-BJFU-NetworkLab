@@ -14,16 +14,25 @@ serverSocket.bind((ip, port))
 
 while 1:
     print('udp server start.....')
-    sock, addr = serverSocket.recvfrom(1024)    # recvfrom 接收数据和客户端的地址、端口
-    message = sock.decode()
-    print('message: ', message, '   address: ', addr)
-    if message == 'exit':
+    sock, addr = serverSocket.recvfrom(2024)    # 是否需要添加分片处理机制
+    # 用来模拟TCP连接建立和释放
+    if sock.decode() == 'connect':
+        print(addr, 'connected')
+        message = 'ACK'
+        serverSocket.sendto(message.encode(), addr)
+        continue
+    elif sock.decode() == 'disconnect':
+        message = 'ACK'
+        serverSocket.sendto(message.encode(), addr)
         break
 
+    sequence_number, version, *last = sock.decode().split(':')
+    server_time = time.strftime('%H:%M:%S', time.localtime(time.time()))
+    content = f"{server_time}:server -> client"
     flag = random.randint(0, 1)     # 丢包率设定为50%
     if flag == 0:
         print("sending back.....")
-        ret = "server message: " + message
+        ret = f"{sequence_number}:{version}:{content}"
         serverSocket.sendto(ret.encode(), addr)
     else:
         print('data loss.....')
