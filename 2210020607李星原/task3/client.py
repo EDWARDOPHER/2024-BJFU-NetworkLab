@@ -8,7 +8,6 @@ import sys
 
 HOST = sys.argv[1]      # 服务端地址
 PORT = int(sys.argv[2])     # 服务端端口
-
 lmin = int(sys.argv[3])
 lmax = int(sys.argv[4])
 
@@ -26,6 +25,7 @@ length = 0
 
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client_socket.connect((HOST, PORT))
+
 
 def main():
     try:
@@ -48,17 +48,16 @@ def main():
                 # 开始发送消息
                 idx = 0
                 for data in segment_message:
-                    flag = input('If you want to continue, type "c"')
-                    if flag != 'c':
-                        break
+                    # flag = input('If you want to continue, type "c"')
+                    # if flag != 'c':
+                    #     break
                     msg = f"{msg_type[2]}:{len(data)}:{data}"
-                    print(f"msg:     type: {msg_type[2]}, length: {len(data)}, data: {data}")
                     client_socket.sendall(msg.encode('utf-8'))
                     try:
                         data = client_socket.recv(1024)
                         idx += 1
-                        print("message from the server............")
-                        print(f"{idx}: {data.decode('utf-8')}")
+                        data = data.decode('utf-8').split(':')
+                        print(f"{idx}: {data[2]}")
                     except Exception as e:
                         print(f"Error: {e}")
         except Exception as e:
