@@ -2,6 +2,8 @@
 guest os: Ubuntu 22.04.4 LTS
 host os: Windows11
 
+ASCII.txt文件为client用于读取的英文文本
+
 运行：
 server.py： 运行在guest os(虚拟机)上，在终端输入 'python/python3/python2 server.py' 即可，python, python3, python2根据您系统安装的解释器版本选择，例如在ubuntu系统下我安装了python3.11，那么输入 'python3 server.py' 。
 
