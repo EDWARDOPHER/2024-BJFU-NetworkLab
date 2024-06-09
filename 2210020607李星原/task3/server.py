@@ -30,8 +30,8 @@ def handle_client(client_socket, client_address):
 
 def main():
     # 定义服务器地址和端口
-    server_ip = '127.0.0.1'
-    server_port = 65432
+    server_ip = '0.0.0.0'
+    server_port = 1200
 
     # 创建TCP套接字
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

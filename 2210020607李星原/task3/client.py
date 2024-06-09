@@ -12,7 +12,8 @@ lmin = int(sys.argv[3])
 lmax = int(sys.argv[4])
 
 if lmin > lmax or lmax > 1024:
-    print("lmin > lmax and lmax > 1024")
+    print("min 大于 max， 或者max 大于1024，请修改后重新尝试")
+    sys.exit()
 
 FILE_PATH = 'ASCII.txt'  # 需要发送的文本文件路径
 
